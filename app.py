@@ -14,9 +14,9 @@ class Curl():
         .format(Curl.username, Curl.password, self.text, self.subject)
         
         if call(a, shell=True):
-            return "succefully sended :)"
+            return "succefully sended :)\n"
         else:
-            return "Error"
+            return "Error\n"
 
 
 wmsg = "\033[0;32;40m"
@@ -34,6 +34,6 @@ if confirmation.casefold() == "y" or confirmation.casefold() == "yes" or confirm
     l.throw_to_db()
 
 else:
-    print("Canceld!")
+    print("Canceld!\n")
     sys.exit()
 
