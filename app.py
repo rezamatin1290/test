@@ -22,9 +22,9 @@ class Curl():
 wmsg = "\033[0;32;40m"
 rmsg = '\033[0;37;40m'
 
-subject = input(wmsg+"subject: "+rmsg+": ")
+subject = input(wmsg+"subject: "+rmsg+" ")
 
-text = input(wmsg+"text: "+rmsg+": ")
+text = input(wmsg+"text: "+rmsg+" ")
 
 
 confirmation = input("\nsubject: {}\nmatn:{}\nAya Mayel Hastid Sabt Shavad[Y/n]? ".format(subject, text))
