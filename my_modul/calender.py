@@ -1,4 +1,4 @@
-a =i nput("Enter a number:")
+a = input("Enter a number:")
 a = int(a) #roooz+avvalinn roz saal
 if(a<=186):
     b=(a//31)
