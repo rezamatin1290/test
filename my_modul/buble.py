@@ -9,14 +9,14 @@ def input_list():
 
 def sort_wills():
         if (len(ls_1))!=1:
-                for x in range((len(ls_2)-1),0,-1):
-                        if ls_2[x]<ls_2[x-1]:
-                                temp=ls_2[x-1]
-                                ls_2[x-1]=ls_2[x]
-                                ls_2[x]=temp
-                                temp=ls_1[x-1]
-                                ls_1[x-1]=ls_1[x]
-                                ls_1[x]=temp
+                for x in range((len(ls_2)-1), 0, -1):
+                        if ls_2[x] < ls_2[x-1]:
+                                temp = ls_2[x-1]
+                                ls_2[x-1] = ls_2[x]
+                                ls_2[x] = temp
+                                temp = ls_1[x-1]
+                                ls_1[x-1] = ls_1[x]
+                                ls_1[x] = temp
                                 del temp
                         else:
                                 break
@@ -35,8 +35,8 @@ def sort_wills():
                         del temp
 
         """
-ls_1=[]
-ls_2=[]
+ls_1 = []
+ls_2 = []
 for x in range(8):
         input_list()
         print(ls_1)
