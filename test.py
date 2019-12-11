@@ -11,10 +11,7 @@ class star:
     
     
 def show_out(matn, s):
-    """
-    show and clear out put
-    
-    """
+    """show and clear out put"""
     stdout.write(f"{star.BLUE}{str(matn)}")
     stdout.write("\033[?25h")
     stdout.flush()
