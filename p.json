@@ -1,100 +1,61 @@
 {
-  "log": {
-    "access": "",
-    "error": "",
-    "loglevel": "warning"
+  "dns": {
+    "hosts": {
+      "domain:googleapis.cn": "googleapis.com"
+    },
+    "servers": [
+      "1.1.1.1"
+    ]
   },
   "inbounds": [
     {
-      "tag": "socks",
       "port": 10808,
-      "listen": "127.0.0.1",
       "protocol": "socks",
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      },
       "settings": {
         "auth": "noauth",
         "udp": true,
-        "allowTransparent": false
-      }
+        "userLevel": 8
+      },
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "enabled": true
+      },
+      "tag": "socks"
     },
     {
-      "tag": "http",
       "port": 10809,
-      "listen": "127.0.0.1",
       "protocol": "http",
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      },
       "settings": {
-        "auth": "noauth",
-        "udp": true,
-        "allowTransparent": false
-      }
-    },
-    {
-      "tag": "socks2",
-      "port": 10810,
-      "listen": "0.0.0.0",
-      "protocol": "socks",
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
+        "userLevel": 8
       },
-      "settings": {
-        "auth": "noauth",
-        "udp": true,
-        "allowTransparent": false
-      }
-    },
-    {
-      "tag": "http2",
-      "port": 10811,
-      "listen": "0.0.0.0",
-      "protocol": "http",
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      },
-      "settings": {
-        "auth": "noauth",
-        "udp": true,
-        "allowTransparent": false
-      }
+      "tag": "http"
     }
   ],
+  "log": {
+    "loglevel": "warning"
+  },
   "outbounds": [
     {
-      "tag": "proxy",
+      "mux": {
+        "concurrency": 8,
+        "enabled": false
+      },
       "protocol": "vless",
       "settings": {
         "vnext": [
           {
-            "address": "vlca.g2ray.com",
+            "address": "vlus.g2ray.com",
             "port": 443,
             "users": [
               {
-                "id": "cc7474dd-c0aa-4743-a14a-51379cc24211",
-                "alterId": 0,
-                "email": "t@t.tt",
-                "security": "auto",
                 "encryption": "none",
-                "flow": "xtls-rprx-direct"
+                "flow": "",
+                "id": "cc7474dd-c0aa-4743-a14a-51379cc24211",
+                "level": 8,
+                "security": "auto"
               }
             ]
           }
@@ -102,83 +63,62 @@
       },
       "streamSettings": {
         "network": "tcp",
-        "security": "xtls",
-        "xtlsSettings": {
+        "security": "tls",
+        "tcpSettings": {
+          "header": {
+            "type": "none"
+          }
+        },
+        "tlsSettings": {
           "allowInsecure": true,
-          "fingerprint": "randomized"
+          "fingerprint": "randomized",
+          "serverName": ""
         }
       },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
-      }
+      "tag": "proxy"
     },
     {
-      "tag": "direct",
       "protocol": "freedom",
-      "settings": {}
+      "settings": {},
+      "tag": "direct"
     },
     {
-      "tag": "block",
       "protocol": "blackhole",
       "settings": {
         "response": {
           "type": "http"
         }
-      }
+      },
+      "tag": "block"
     }
   ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    },
+    "system": {
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
   "routing": {
+    "domainMatcher": "mph",
     "domainStrategy": "IPIfNonMatch",
     "rules": [
       {
-        "type": "field",
-        "inboundTag": [
-          "api"
-        ],
-        "outboundTag": "api",
-        "enabled": true
-      },
-      {
-        "type": "field",
-        "outboundTag": "direct",
-        "domain": [
-          "domain:example-example.com",
-          "domain:example-example2.com"
-        ],
-        "enabled": true
-      },
-      {
-        "type": "field",
-        "outboundTag": "block",
-        "domain": [
-          "geosite:category-ads-all"
-        ],
-        "enabled": true
-      },
-      {
-        "type": "field",
-        "outboundTag": "direct",
-        "domain": [
-          "geosite:cn"
-        ],
-        "enabled": true
-      },
-      {
-        "type": "field",
-        "outboundTag": "direct",
         "ip": [
-          "geoip:private",
-          "geoip:cn"
+          "1.1.1.1"
         ],
-        "enabled": true
-      },
-      {
-        "type": "field",
-        "port": "0-65535",
         "outboundTag": "proxy",
-        "enabled": true
+        "port": "53",
+        "type": "field"
       }
     ]
-  }
+  },
+  "stats": {}
 }
