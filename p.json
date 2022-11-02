@@ -81,36 +81,31 @@
   "outbounds": [
     {
       "tag": "proxy",
-      "protocol": "vmess",
+      "protocol": "vless",
       "settings": {
         "vnext": [
           {
-            "address": "niceholiday1.online",
+            "address": "vlca.g2ray.com",
             "port": 443,
             "users": [
               {
-                "id": "8996ac12-17b4-442d-ae99-f4914b74319f",
+                "id": "cc7474dd-c0aa-4743-a14a-51379cc24211",
                 "alterId": 0,
                 "email": "t@t.tt",
-                "security": "auto"
+                "security": "auto",
+                "encryption": "none",
+                "flow": "xtls-rprx-direct"
               }
             ]
           }
         ]
       },
       "streamSettings": {
-        "network": "ws",
-        "security": "tls",
-        "tlsSettings": {
+        "network": "tcp",
+        "security": "xtls",
+        "xtlsSettings": {
           "allowInsecure": true,
-          "serverName": "niceholiday1.online",
-          "fingerprint": "chrome"
-        },
-        "wsSettings": {
-          "path": "/zjzovws",
-          "headers": {
-            "Host": "niceholiday1.online"
-          }
+          "fingerprint": "randomized"
         }
       },
       "mux": {
